@@ -1,0 +1,4 @@
+# Keep AIOS framework/tooling out of primary language stats on GitHub Linguist.
+.aios-core/** linguist-vendored
+.claude/** linguist-vendored
+.codex/** linguist-vendored

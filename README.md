@@ -1,176 +1,183 @@
-# flutter_ai_agent_synkra
+# Synkra Agents AI Flutter
 
-Projeto Flutter com base em Clean Architecture e fluxo de desenvolvimento orientado por Synkra AIOS.
+PT-BR | [English](#english)
 
-## Stack atual
+Projeto Flutter com **Clean Architecture** + **Synkra AIOS** para execução orientada por stories.
 
-- Flutter
-- Provider
-- GoRouter
-- GetIt
-- Synkra AIOS para orquestracao de desenvolvimento
+## O que o app faz hoje
 
-## Instalar Synkra via npm
+- Fluxo básico de autenticação (login/home)
+- CRUD de produtos via API REST
+- Estrutura de features por contexto (`auth`, `products`, `meta`)
+- Navegação com `GoRouter` e DI com `GetIt`
+
+## Demo rápida
+
+- Screenshots/GIF: adicione em `docs/assets/` e referencie aqui
+- Exemplo:
+  - `docs/assets/login.png`
+  - `docs/assets/products-list.png`
+  - `docs/assets/products-flow.gif`
+
+## Rodar em 1 minuto
 
 Pré-requisitos:
 
-- Node.js 20+
-- npm 9+
+- Flutter SDK 3.35+
+- Dart SDK 3.11+
 
-Instalacao no projeto atual:
+Comandos:
 
 ```bash
-cd flutter_ai_agent_synkra
-npx @synkra/aios-core@latest install
+flutter pub get
+flutter run
 ```
 
-Atualizar instalacao existente:
+## Quality Gates (Flutter)
 
 ```bash
-npx @synkra/aios-core@latest install --force-upgrade
-```
-
-## Como ajustar o Synkra para este projeto
-
-Arquivos que devem ficar alinhados com a realidade do app:
-
-- `AGENTS.md`: regras operacionais do projeto e atalhos de agentes
-- `.aios-core/core-config.yaml`: paths de stories/docs e configuracao de IDE
-- `docs/USO-SYNKRA-FLUTTER.md`: playbook oficial de prompts e fluxo
-- `docs/stories/`: backlog e execucao por story
-- `.env` e `.env.example`: variaveis de ambiente do app/API
-
-Ajustes obrigatorios deste projeto:
-
-- Base URL global da API: `http://localhost:3000/api`
-- Recurso de exemplo oficial: `products`
-- Contrato de produto: `idProduct`, `name`, `price`
-
-## Como trabalhar neste projeto (fluxo padrao Synkra)
-
-1. Escolha a story em `docs/stories/`
-2. Use o fluxo de agentes (`@analyst -> @architect -> @sm -> @dev -> @qa`)
-3. Rode validacoes locais:
-
-```bash
+dart format . --set-exit-if-changed
 flutter analyze
 flutter test
+# opcional
+flutter test --coverage
 ```
 
-## Regras de implementacao
-
-- Todas as regras de implementacao ficam centralizadas em `AGENTS.md`.
-
-## Prompt padrao para nova feature (exemplo: Products CRUD)
-
-### 1) Analyst
+## Mini diagrama de arquitetura
 
 ```text
-@analyst
-Nova feature: Products CRUD.
-Base URL obrigatoria: http://localhost:3000/api
-Endpoint: /products
-Campos: idProduct, name, price
-Defina requisitos funcionais, nao funcionais e criterios de aceite.
-Considere as regras globais de implementacao definidas em AGENTS.md.
+Presentation (pages/providers)
+        |
+Domain (entities/usecases/contracts)
+        |
+Data (datasources/models/repositories)
 ```
 
-### 2) Architect
+## Estrutura principal
 
 ```text
-@architect
-Desenhe a arquitetura da feature Products CRUD em Clean Architecture:
-entity, repository, datasource HTTP, use cases (create/list/get/update/delete),
-provider, rotas e DI.
-Siga as regras globais definidas em AGENTS.md.
+lib/
+  app/
+  core/
+    di/
+    error/
+    router/
+  features/
+    auth/
+    products/
+    meta/
+  main.dart
+
+docs/
+  stories/
+  USO-SYNKRA-FLUTTER.md
 ```
 
-### 3) Scrum Master
+## Linguagem do repositório no GitHub
+
+A pasta `.aios-core/` é infraestrutura de automação e pode influenciar os gráficos de linguagem do GitHub.
+Para reduzir esse ruído, o projeto marca essa pasta como `linguist-vendored` em `.gitattributes`.
+
+## Fluxo Synkra (resumo)
+
+1. Escolher story em `docs/stories/`
+2. Executar fluxo de agentes (`@analyst -> @architect -> @sm -> @dev -> @qa`)
+3. Validar com Quality Gates Flutter
+
+## Documentação
+
+- Guia principal: `docs/USO-SYNKRA-FLUTTER.md`
+- Story base: `docs/stories/story-FL-1-clean-arch-foundation.md`
+- Exemplo Products CRUD: `docs/stories/story-FL-2-products-crud-api.md`
+
+---
+
+## English
+
+Flutter project with **Clean Architecture** + **Synkra AIOS** for story-driven development.
+
+## What the app currently does
+
+- Basic auth flow (login/home)
+- Products CRUD using a REST API
+- Feature-based structure (`auth`, `products`, `meta`)
+- Navigation with `GoRouter` and DI with `GetIt`
+
+## Quick demo
+
+- Add screenshots/GIF files under `docs/assets/` and reference them here
+- Example:
+  - `docs/assets/login.png`
+  - `docs/assets/products-list.png`
+  - `docs/assets/products-flow.gif`
+
+## Run in 1 minute
+
+Prerequisites:
+
+- Flutter SDK 3.35+
+- Dart SDK 3.11+
+
+Commands:
+
+```bash
+flutter pub get
+flutter run
+```
+
+## Quality Gates (Flutter)
+
+```bash
+dart format . --set-exit-if-changed
+flutter analyze
+flutter test
+# optional
+flutter test --coverage
+```
+
+## Clean Architecture mini diagram
 
 ```text
-@sm
-Crie/atualize story da feature Products CRUD em docs/stories com:
-User Story, Acceptance Criteria, Tasks checklist e File list.
+Presentation (pages/providers)
+        |
+Domain (entities/usecases/contracts)
+        |
+Data (datasources/models/repositories)
 ```
 
-### 4) Dev
+## Main project structure
 
 ```text
-@dev
-Implemente a story de Products CRUD usando:
-http://localhost:3000/api/products
-No fim, atualize checklist/file list e rode flutter analyze + flutter test.
-Siga as regras globais definidas em AGENTS.md.
+lib/
+  app/
+  core/
+    di/
+    error/
+    router/
+  features/
+    auth/
+    products/
+    meta/
+  main.dart
+
+docs/
+  stories/
+  USO-SYNKRA-FLUTTER.md
 ```
 
-### 5) QA
+## GitHub language stats note
 
-```text
-@qa
-Revise a story de Products CRUD:
-valide ACs, riscos de regressao e evidencias de analyze/test.
-```
+The `.aios-core/` folder is automation infrastructure and can skew GitHub language statistics.
+To reduce this noise, the repository marks it as `linguist-vendored` in `.gitattributes`.
 
-## Prompt padrao para corrigir bug (exemplo: Products)
+## Synkra workflow (summary)
 
-Exemplo de bug: falha ao atualizar produto no `PUT /products/{idProduct}`.
+1. Pick a story in `docs/stories/`
+2. Run the agent flow (`@analyst -> @architect -> @sm -> @dev -> @qa`)
+3. Validate with Flutter Quality Gates
 
-### 1) Analyst (triagem)
+## Docs
 
-```text
-@analyst
-Temos um bug na feature Products.
-Sintoma: update de produto falha.
-Contexto: API base http://localhost:3000/api, endpoint /products/{idProduct}.
-Documente causa provavel, impacto, criterio de aceite da correcao e casos de teste.
-Considere as regras globais definidas em AGENTS.md.
-```
-
-### 2) Architect (estrategia de correcao)
-
-```text
-@architect
-Proponha correcao tecnica para o bug de update em Products,
-incluindo ajuste de contrato, fluxo de erro e impacto em camadas/DI/provider.
-Siga as regras globais definidas em AGENTS.md.
-```
-
-### 3) Scrum Master (story de bugfix)
-
-```text
-@sm
-Crie uma story de bugfix para Products com:
-reproducao, ACs de correcao, tasks e file list.
-```
-
-### 4) Dev (fix)
-
-```text
-@dev
-Implemente a correcao do bug em Products.
-Inclua/ajuste testes para reproduzir e prevenir regressao.
-Finalize com flutter analyze + flutter test e atualize a story.
-Siga as regras globais definidas em AGENTS.md.
-```
-
-### 5) QA (validacao final)
-
-```text
-@qa
-Valide o bugfix de Products:
-1) reproduz bug antes
-2) confirma correcao depois
-3) valida regressao do CRUD completo
-```
-
-## Documentacao Synkra do projeto
-
-- Guia principal de uso do AIOS no app: `docs/USO-SYNKRA-FLUTTER.md`
-- Story base da arquitetura: `docs/stories/story-FL-1-clean-arch-foundation.md`
-- Story da feature de exemplo (Products CRUD): `docs/stories/story-FL-2-products-crud-api.md`
-
-## Apoio visual no app
-
-- Rota interna: `/synkra-prompts`
-- Tela: `lib/features/meta/presentation/pages/synkra_prompts_page.dart`
-# synkra-agents-ai-flutter
+- Main guide: `docs/USO-SYNKRA-FLUTTER.md`
+- Foundation story: `docs/stories/story-FL-1-clean-arch-foundation.md`
+- Products CRUD example: `docs/stories/story-FL-2-products-crud-api.md`

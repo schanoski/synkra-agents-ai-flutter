@@ -54,20 +54,23 @@ Arquitetura base (manter este padrao):
 <!-- AIOS-MANAGED-START: quality -->
 ## Quality Gates
 
-- Rode `npm run lint`
-- Rode `npm run typecheck`
-- Rode `npm test`
+- Rode `dart format . --set-exit-if-changed`
+- Rode `flutter analyze`
+- Rode `flutter test`
+- (Opcional para evidencias) Rode `flutter test --coverage`
 - Atualize checklist e file list da story antes de concluir
 <!-- AIOS-MANAGED-END: quality -->
 
 <!-- AIOS-MANAGED-START: codebase -->
 ## Project Map
 
-- Core framework: `.aios-core/`
-- CLI entrypoints: `bin/`
-- Shared packages: `packages/`
-- Tests: `tests/`
-- Docs: `docs/`
+- Flutter app: `lib/`
+- Features: `lib/features/`
+- Core/shared infra: `lib/core/`
+- UI composition/bootstrap: `lib/app/`, `lib/main.dart`
+- Testes Flutter: `test/`
+- Stories e docs: `docs/`
+- Synkra AIOS core/tooling: `.aios-core/`
 <!-- AIOS-MANAGED-END: codebase -->
 
 <!-- AIOS-MANAGED-START: commands -->
